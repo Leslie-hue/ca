@@ -500,15 +500,62 @@
                         
                         <?php foreach ($content as $section => $keys): ?>
                             <h3 style="color: #3b82f6; margin: 2rem 0 1rem; font-size: 1.2rem; text-transform: capitalize;">
-                                <?php echo htmlspecialchars($section); ?>
+                                <?php 
+                                $sectionTitles = [
+                                    'hero' => 'Section Héro',
+                                    'about' => 'Section À propos',
+                                    'values' => 'Section Nos Valeurs',
+                                    'success' => 'Section Taux de Réussite',
+                                    'services' => 'Section Services',
+                                    'team' => 'Section Équipe',
+                                    'mission' => 'Section Notre Mission',
+                                    'contact' => 'Section Contact',
+                                    'footer' => 'Section Pied de page'
+                                ];
+                                echo $sectionTitles[$section] ?? ucfirst($section);
+                                ?>
                             </h3>
                             
                             <div class="content-grid">
                                 <?php foreach ($keys as $key => $value): ?>
                                     <div class="content-item">
-                                        <label><?php echo htmlspecialchars($key); ?></label>
-                                        <input type="text" name="content[<?php echo htmlspecialchars($section); ?>][<?php echo htmlspecialchars($key); ?>]" 
-                                               value="<?php echo htmlspecialchars($value); ?>">
+                                        <label><?php 
+                                        $keyLabels = [
+                                            'title' => 'Titre',
+                                            'subtitle' => 'Sous-titre',
+                                            'description' => 'Description',
+                                            'content' => 'Contenu',
+                                            'additional_content' => 'Contenu additionnel',
+                                            'cta_text' => 'Texte du bouton',
+                                            'integrity_title' => 'Titre Intégrité',
+                                            'integrity_description' => 'Description Intégrité',
+                                            'excellence_title' => 'Titre Excellence',
+                                            'excellence_description' => 'Description Excellence',
+                                            'commitment_title' => 'Titre Engagement',
+                                            'commitment_description' => 'Description Engagement',
+                                            'success_rate' => 'Taux de réussite',
+                                            'clients_count' => 'Nombre de clients',
+                                            'experience_years' => 'Années d\'expérience',
+                                            'cases_won' => 'Affaires gagnées',
+                                            'proximity_title' => 'Titre Proximité',
+                                            'proximity_description' => 'Description Proximité',
+                                            'innovation_title' => 'Titre Innovation',
+                                            'innovation_description' => 'Description Innovation',
+                                            'address' => 'Adresse',
+                                            'phone' => 'Téléphone',
+                                            'email' => 'Email',
+                                            'hours' => 'Horaires',
+                                            'copyright' => 'Copyright'
+                                        ];
+                                        echo $keyLabels[$key] ?? ucfirst(str_replace('_', ' ', $key));
+                                        ?></label>
+                                        <?php if (in_array($key, ['description', 'content', 'additional_content'])): ?>
+                                            <textarea name="content[<?php echo htmlspecialchars($section); ?>][<?php echo htmlspecialchars($key); ?>]" 
+                                                      rows="3" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 10px;"><?php echo htmlspecialchars($value); ?></textarea>
+                                        <?php else: ?>
+                                            <input type="text" name="content[<?php echo htmlspecialchars($section); ?>][<?php echo htmlspecialchars($key); ?>]" 
+                                                   value="<?php echo htmlspecialchars($value); ?>">
+                                        <?php endif; ?>
                                         <button type="button" class="btn btn-danger" onclick="deleteContent('<?php echo htmlspecialchars($section); ?>', '<?php echo htmlspecialchars($key); ?>')">
                                             <i class="fas fa-trash"></i>
                                         </button>
